@@ -83,8 +83,11 @@ public class MainActivity extends Activity {
                             .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
                     // Add the name and address to an map adapter to show
-                    mDeviceHashMap.put(device.getName(), device.getAddress());
-                    showConnectedDevice();
+                    if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
+                        mDeviceHashMap.put(device.getName(), device.getAddress());
+                        showConnectedDevice();
+                    }
+
                 } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                     Toast.makeText(mActivity, "ACTION_DISCOVERY_FINISHED", Toast.LENGTH_LONG).show();
                 }
